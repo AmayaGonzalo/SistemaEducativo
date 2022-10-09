@@ -1,12 +1,8 @@
-var resultado;
 var Alumno = /** @class */ (function () {
-    function Alumno(pNombre, pApellido, pMatematicas, pLengua, pSociales, pNaturales) {
+    function Alumno(pNombre, pApellido, pNota) {
         this.nombre = pNombre;
         this.apellido = pApellido;
-        this.matematicas = pMatematicas;
-        this.lengua = pLengua;
-        this.sociales = pSociales;
-        this.naturales = pNaturales;
+        this.nota = pNota;
     }
     Alumno.prototype.getNombre = function () {
         return this.nombre;
@@ -20,38 +16,19 @@ var Alumno = /** @class */ (function () {
     Alumno.prototype.setApellido = function (pApellido) {
         this.apellido = pApellido;
     };
-    Alumno.prototype.getMatematicas = function () {
-        return this.matematicas;
+    Alumno.prototype.getNota = function () {
+        return this.nota;
     };
-    Alumno.prototype.setMatematicas = function (pMatematicas) {
-        this.matematicas = pMatematicas;
+    Alumno.prototype.setNota = function (pNota) {
+        this.nota = pNota;
     };
-    Alumno.prototype.getLengua = function () {
-        return this.lengua;
-    };
-    Alumno.prototype.setLengua = function (pLengua) {
-        this.lengua = pLengua;
-    };
-    Alumno.prototype.getSociales = function () {
-        return this.sociales;
-    };
-    Alumno.prototype.setSociales = function (pSociales) {
-        this.sociales = pSociales;
-    };
-    Alumno.prototype.getNaturales = function () {
-        return this.naturales;
-    };
-    Alumno.prototype.setNaturales = function (pNaturales) {
-        this.naturales = pNaturales;
-    };
-    Alumno.prototype.getComprobarNota = function (a) {
-        if (a > 7) {
-            resultado = " aprobado ";
+    Alumno.prototype.getAprobado = function () {
+        if (this.nota > 7) {
+            return true;
         }
         else {
-            resultado = " desaprobado ";
+            return false;
         }
-        return resultado;
     };
     return Alumno;
 }());
@@ -72,6 +49,12 @@ var Profesor = /** @class */ (function () {
     };
     Profesor.prototype.setApellido = function (pApellido) {
         this.apellido = pApellido;
+    };
+    Profesor.prototype.getAlumnos = function () {
+        return this.listadoAlumnos;
+    };
+    Profesor.prototype.setAlumnos = function (pAlumno) {
+        this.listadoAlumnos.push(pAlumno);
     };
     return Profesor;
 }());
@@ -113,16 +96,16 @@ var Escuela = /** @class */ (function () {
     };
     return Escuela;
 }());
-var primerAlumno = new Alumno("Juan", "Perez", 6, 8, 10, 5);
-var segundoAlumno = new Alumno("Carolina", "Guitierrez", 8, 7, 5, 9);
-var tercerAlumno = new Alumno("Carlos", "Avalos", 9, 9, 5, 7);
+var primerAlumno = new Alumno("Juan", "Perez", 6);
+var segundoAlumno = new Alumno("Carolina", "Guitierrez", 8);
+var tercerAlumno = new Alumno("Carlos", "Avalos", 9);
 var listaAlumno = [primerAlumno, segundoAlumno, tercerAlumno];
 var primerProfesor = new Profesor("Jose", "Fernandez", listaAlumno);
 var segundoProfesor = new Profesor("Maria", "Cuevas", listaAlumno);
 var listaProfesores = [primerProfesor, segundoProfesor];
 var escuelaN1 = new Escuela("Escuela N 1", listaAlumno, listaProfesores);
-console.log(primerAlumno.getComprobarNota(primerAlumno.getMatematicas()));
-console.log(primerAlumno.getNombre());
+console.log("Primer alumno esta aprobado: ", primerAlumno.getAprobado());
+console.log("Nombre primer alumno:", primerAlumno.getNombre());
 escuelaN1.matricularAlumno(tercerAlumno);
 escuelaN1.expulsarProfesor(segundoProfesor);
 escuelaN1.expulsarAlumno(segundoAlumno);
